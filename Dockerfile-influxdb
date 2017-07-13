@@ -1,0 +1,12 @@
+FROM tonychengtw/ubuntu-minimum-armhf:16.04
+MAINTAINER Tony Cheng <tony.pig@gmail.com>
+
+COPY influxdb.key /tmp
+COPY example/ /root/
+RUN apt-key add /tmp/influxdb.key && \
+    echo 'deb https://repos.influxdata.com/ubuntu/ xenial stable' > /etc/apt/sources.list.d/influxdb.list && \
+    export DEBIAN_FRONTEND='noninteractive' && \
+    (apt-get update || true ) && \
+    apt-get install -y --no-install-recommends influxdb-client python-influxdb influxdb
+
+CMD influxdb

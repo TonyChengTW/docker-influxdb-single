@@ -1,0 +1,11 @@
+FROM tonycheng/ubuntu-official-armhf:16.04
+MAINTAINER Tony Cheng <tony.pig@gmail.com>
+
+
+COPY files/loop.sh /usr/bin
+RUN chown root:root /usr/bin/loop.sh && \
+    chmod +x /usr/bin/loop.sh && \
+    export DEBIAN_FRONTEND='noninteractive' && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends procps vim net-tools apt-transport-https curl apt-utils
+CMD loop.sh
